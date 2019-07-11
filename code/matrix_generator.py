@@ -185,8 +185,8 @@ def generate_signature_matrix_link():
 							sumprod = 0 # node_i -> node_j
 							source_node, dest_node = unique_link_name[i], unique_link_name[j]
 							sd_concat_index = np.where(link_name_concat == source_node+"-"+dest_node)[0]
-		                    if len(sd_concat_index) > 0:
-		                        link_vector = data[sd_concat_index[0], t - win:t]
+							if len(sd_concat_index) > 0:
+								link_vector = data[sd_concat_index[0], t - win:t]
 								for k in range(link_name.shape[0]):
 									if link_name[k][0] == dest_node:
 										# sum(vector(a->b) * vectro(b->c) + vector(a->b) * vectro(b->d) + ...)/count(b->c,d,...)
