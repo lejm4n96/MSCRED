@@ -214,7 +214,7 @@ def generate_signature_matrix_link():
 def generate_train_test_data():
 	#data sample generation
 	print ("generating train/test data samples...")
-	matrix_data_path = "/home/zhaos/ts_data_csv2/signature_matrix/"
+	#matrix_data_path = "/home/zhaos/ts_data_csv2/signature_matrix/"
 
 	train_data_path = matrix_data_path + "train_data/"
 	if not os.path.exists(train_data_path):
@@ -226,7 +226,7 @@ def generate_train_test_data():
 	data_all = []
 	for value_col in value_colnames:
 		for w in range(len(win_size)):
-			path_temp = matrix_data_path + "matrix_win_" + str(win_size[w]) + str(value_col) + ".npy"
+			path_temp = matrix_data_path + "matrix_win_" + str(win_size[w]) + ".npy"
 			data_all.append(np.load(path_temp))
 
 	train_test_time = [[train_start, train_end], [test_start, test_end]]
