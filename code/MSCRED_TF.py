@@ -32,9 +32,9 @@ parser.add_argument('--save_model_step', type = int, default = 1,
 						help = 'number of iterations to save model')
 parser.add_argument('--model_path', type = str, default = '/home/zhaos/ts_data_csv2/MSCRED/',
 				   help='path to save models')
-parser.add_argument('--raw_data_path', type = str, default = '/home/zhaos/ts_data_csv2/ts_model_input.csv',
+parser.add_argument('--raw_data_path', type = str, default = '../data/synthetic_data_with_anomaly-s-1.csv',
 				   help='path to load raw data')
-parser.add_argument('--matrix_data_path', type = str, default = '/home/zhaos/ts_data_csv2/signature_matrix/',
+parser.add_argument('--matrix_data_path', type = str, default = '../data/matrix_data/',
 				   help='matrix data path')
 # parser.add_argument('--test_input_path', type = str, default = '../data/matrix_data/test_data/',
 # 				   help='test input data path')
