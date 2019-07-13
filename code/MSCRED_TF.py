@@ -30,7 +30,7 @@ parser.add_argument('--test_end_id',  type = int, default = 2000,
 						help = 'test end id')
 parser.add_argument('--save_model_step', type = int, default = 1,
 						help = 'number of iterations to save model')
-parser.add_argument('--model_path', type = str, default = '/home/zhaos/ts_data_csv2/MSCRED/',
+parser.add_argument('--model_path', type = str, default = '../data/ts_data_csv2/MSCRED/',
 				   help='path to save models')
 parser.add_argument('--raw_data_path', type = str, default = '../data/synthetic_data_with_anomaly-s-1.csv',
 				   help='path to load raw data')
@@ -70,7 +70,7 @@ train_test_label = args.train_test_label
 
 value_colnames = ['total_count','error_count','error_rate']
 scale_n = len(win_size) * len(value_colnames)
-sensor_n = np.unique(np.array(pd.read_csv(raw_data_path).iloc[:,:2])).shape[0]
+sensor_n = np.array(pd.read_csv(raw_data_path, header = None), dtype=np.float64).shape[0]
 # set GPU
 #GPU_id = args.GPU_id
 #os.environ['CUDA_VISIBLE_DEVICES'] = str(GPU_id)
