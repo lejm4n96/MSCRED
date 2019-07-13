@@ -30,10 +30,10 @@ print(args)
 thred_b = args.thred_broken
 alpha = args.alpha
 gap_time = args.gap_time
-valid_start = args.valid_start_point/gap_time
-valid_end = args.valid_end_point/gap_time
-test_start = args.test_start_point/gap_time
-test_end = args.test_end_point/gap_time
+valid_start = int(args.valid_start_point/gap_time)
+valid_end = int(args.valid_end_point/gap_time)
+test_start = int(args.test_start_point/gap_time)
+test_end = int(args.test_end_point/gap_time)
 
 valid_anomaly_score = np.zeros((valid_end - valid_start , 1))
 test_anomaly_score = np.zeros((test_end - test_start, 1))
@@ -81,11 +81,11 @@ root_cause_f = open("../data/test_anomaly.csv", "r")
 row_index = 0
 for line in root_cause_f:
 	line=line.strip()
-	anomaly_axis = string.atoi(re.split(',',line)[0])
+	anomaly_axis = int(re.split(',',line)[0])
 	anomaly_pos[row_index] = anomaly_axis/gap_time - test_start - anomaly_span[row_index%3]/gap_time
 	root_list = re.split(',',line)[1:]
 	for k in range(len(root_list)-1):
-		root_cause_gt[row_index][k] = string.atoi(root_list[k])
+		root_cause_gt[row_index][k] = int(root_list[k])
 	row_index += 1
 root_cause_f.close()
 
