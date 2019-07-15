@@ -358,7 +358,7 @@ optimizer = tf.train.AdamOptimizer(learning_rate = learning_rate).minimize(loss)
 init = tf.global_variables_initializer()
 saver = tf.train.Saver(max_to_keep = 10)
 
-starting_iter = 50
+starting_iter = 0
 if train_test_label == 1: # model training
 	with tf.Session(config=tf.ConfigProto(inter_op_parallelism_threads=80, intra_op_parallelism_threads=80)) as sess:
 		if starting_iter == 0:
