@@ -17,7 +17,7 @@ parser.add_argument('--valid_end_point',  type = int, default = 10000,
 						help = 'test end point')
 parser.add_argument('--test_start_point',  type = int, default = 10000,
 						help = 'test start point')
-parser.add_argument('--test_end_point',  type = int, default = 20000,
+parser.add_argument('--test_end_point',  type = int, default = 50000,
 						help = 'test end point')
 parser.add_argument('--gap_time', type = int, default = 10,
 				   help = 'gap time between each segment')

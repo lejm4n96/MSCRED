@@ -26,13 +26,13 @@ parser.add_argument('--train_end_id',  type = int, default = 800,
 						help = 'training end id')
 parser.add_argument('--test_start_id',  type = int, default = 800,
 						help = 'test start id')
-parser.add_argument('--test_end_id',  type = int, default = 2000,
+parser.add_argument('--test_end_id',  type = int, default = 5000,
 						help = 'test end id')
 parser.add_argument('--save_model_step', type = int, default = 1,
 						help = 'number of iterations to save model')
 parser.add_argument('--model_path', type = str, default = '../data/ts_data_csv2/MSCRED/',
 				   help='path to save models')
-parser.add_argument('--raw_data_path', type = str, default = '../data/transposed_synthetic_data_with_anomaly-s-1.csv',
+parser.add_argument('--raw_data_path', type = str, default = '../data/part-009.csv',
 				   help='path to load raw data')
 parser.add_argument('--matrix_data_path', type = str, default = '../data/matrix_data/',
 				   help='matrix data path')
@@ -70,7 +70,14 @@ train_test_label = args.train_test_label
 
 value_colnames = ['total_count','error_count','error_rate']
 scale_n = len(win_size) * len(value_colnames)
-sensor_n = np.array(pd.read_csv(raw_data_path, header = None), dtype=np.float64).shape[1]
+
+# get attribute num
+raw_data = pd.read_csv(raw_data_path, usecols=range(4, 235))
+null_std = (raw_data.std(axis=0) == 0)
+data = raw_data.loc[:, raw_data.std() != 0.0]
+data = np.array(data, dtype=np.float64)
+sensor_n = data.shape[1]
+
 # set GPU
 #GPU_id = args.GPU_id
 #os.environ['CUDA_VISIBLE_DEVICES'] = str(GPU_id)
