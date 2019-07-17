@@ -32,7 +32,7 @@ parser.add_argument('--test_start_point',  type = int, default = 8000,
 						help = 'test start point')
 parser.add_argument('--test_end_point',  type = int, default = 20000,
 						help = 'test end point')
-parser.add_argument('--raw_data_path', type = str, default = '../data/synthetic_data_with_anomaly-s-1.csv',
+parser.add_argument('--raw_data_path', type = str, default = '../data/transposed_synthetic_data_with_anomaly-s-1.csv',
 				   help='path to load raw data')
 parser.add_argument('--save_data_path', type = str, default = '../data/',
 				   help='path to save data')
@@ -69,13 +69,14 @@ if not os.path.exists(matrix_data_path):
 
 def generate_signature_matrix_node():
 	data = np.array(pd.read_csv(raw_data_path, header = None), dtype=np.float64)
-	sensor_n = data.shape[0]
+	sensor_n = data.shape[1]
 	#data  = np.array(pd.read_csv(raw_data_path, header = None))[:,2:-1]
 
 	# min-max normalization
-	max_value = np.max(data, axis=1)
-	min_value = np.min(data, axis=1)
-	data = (np.transpose(data) - min_value)/(max_value - min_value + 1e-6)
+	max_value = np.max(data, axis=0)
+	min_value = np.min(data, axis=0)
+
+	data = (data - min_value)/(max_value - min_value + 1e-6)
 
 	# std normalization
 	# data = np.nan_to_num(data)
