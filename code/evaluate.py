@@ -5,6 +5,7 @@ import string
 import re
 import math
 import os
+import progressbar
 
 parser = argparse.ArgumentParser(description = 'MSCRED evaluation')
 parser.add_argument('--thred_broken', type = int, default = 0.005,
@@ -43,7 +44,7 @@ test_data_path = matrix_data_path + "test_data/"
 reconstructed_data_path = matrix_data_path + "reconstructed_data/"
 #reconstructed_data_path = matrix_data_path + "matrix_pred_data/"
 
-for i in range(valid_start, test_end):
+for i in progressbar.progressbar(range(valid_start, test_end)):
 	path_temp_1 = os.path.join(test_data_path, "test_data_" + str(i) + '.npy')
 	gt_matrix_temp = np.load(path_temp_1)
 
@@ -77,6 +78,7 @@ test_anomaly_score = test_anomaly_score.ravel()
 anomaly_pos = np.zeros(5)
 root_cause_gt = np.zeros((5, 3))
 anomaly_span = [10, 30, 90]
+
 root_cause_f = open("../data/test_anomaly.csv", "r")
 row_index = 0
 for line in root_cause_f:
@@ -112,14 +114,3 @@ fig.subplots_adjust(bottom=0.25)
 fig.subplots_adjust(left=0.25)
 plt.title("MSCRED", size = 25)
 plt.show()
-
-
-
-
-
-
-
-
-
-
-
