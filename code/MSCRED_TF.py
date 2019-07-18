@@ -26,7 +26,7 @@ parser.add_argument('--train_end_id',  type = int, default = 800,
 						help = 'training end id')
 parser.add_argument('--test_start_id',  type = int, default = 800,
 						help = 'test start id')
-parser.add_argument('--test_end_id',  type = int, default = 5000,
+parser.add_argument('--test_end_id',  type = int, default = 4500,
 						help = 'test end id')
 parser.add_argument('--save_model_step', type = int, default = 1,
 						help = 'number of iterations to save model')
