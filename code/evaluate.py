@@ -74,34 +74,28 @@ for i in progressbar.progressbar(range(valid_start, test_end)):
 valid_anomaly_max = np.max(valid_anomaly_score.ravel())
 test_anomaly_score = test_anomaly_score.ravel()
 
+# gather ground truth data
+raw_data = pd.read_csv('part-009.csv', usecols=range(0,4))
+raw_data = raw_data.iloc[test_start_point:test_end_point]
+ground_truth = raw_data.iloc[::gap_time,:] #downsampling
+
 # plot anomaly score curve and identification result
-anomaly_pos = np.zeros(5)
-root_cause_gt = np.zeros((5, 3))
-anomaly_span = [10, 30, 90]
-
-root_cause_f = open("../data/test_anomaly.csv", "r")
-row_index = 0
-for line in root_cause_f:
-	line=line.strip()
-	anomaly_axis = int(re.split(',',line)[0])
-	anomaly_pos[row_index] = anomaly_axis/gap_time - test_start - anomaly_span[row_index%3]/gap_time
-	root_list = re.split(',',line)[1:]
-	for k in range(len(root_list)-1):
-		root_cause_gt[row_index][k] = int(root_list[k])
-	row_index += 1
-root_cause_f.close()
-
 fig, axes = plt.subplots()
-#plt.plot(test_anomaly_score, 'black', linewidth = 2)
 test_num = test_end - test_start
 plt.xticks(fontsize = 25)
 plt.ylim((0, 100))
 plt.yticks(np.arange(0, 101, 20), fontsize = 25)
+
+# anomaly score plot
 plt.plot(test_anomaly_score, 'b', linewidth = 2)
+
+# threshold plot
 threshold = np.full((test_num), valid_anomaly_max * alpha)
 axes.plot(threshold, color = 'black', linestyle = '--',linewidth = 2)
-for k in range(len(anomaly_pos)):
-	axes.axvspan(anomaly_pos[k], anomaly_pos[k] + anomaly_span[k%3]/gap_time, color='red', linewidth=2)
+
+# groud truth plot
+axes.fill_between(anomaly_score.index, 0, 1, where=ground_truth['isAnomaly'], alpha=0.4, transform=axes.get_xaxis_transform())
+
 labels = [' ', '0e3', '2e3', '4e3', '6e3', '8e3', '10e3']
 axes.set_xticklabels(labels, rotation = 25, fontsize = 20)
 plt.xlabel('Test Time', fontsize = 25)
