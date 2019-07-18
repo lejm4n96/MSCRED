@@ -94,7 +94,7 @@ threshold = np.full((test_num), valid_anomaly_max * alpha)
 axes.plot(threshold, color = 'black', linestyle = '--',linewidth = 2)
 
 # groud truth plot
-axes.fill_between(anomaly_score.index, 0, 1, where=ground_truth['isAnomaly'], alpha=0.4, transform=axes.get_xaxis_transform())
+axes.fill_between(anomaly_score.index, 0, 1, where=ground_truth['isAnomaly'], alpha=0.4, color='red', transform=axes.get_xaxis_transform())
 
 labels = [' ', '0e3', '2e3', '4e3', '6e3', '8e3', '10e3']
 axes.set_xticklabels(labels, rotation = 25, fontsize = 20)
