@@ -23,6 +23,8 @@ parser.add_argument('--test_end_point',  type = int, default = 45000,
 						help = 'test end point')
 parser.add_argument('--gap_time', type = int, default = 10,
 				   help = 'gap time between each segment')
+parser.add_argument('--raw_data_path', type = str, default = '../data/part-009.csv',
+				   help='path to load raw data')
 parser.add_argument('--matrix_data_path', type = str, default = '../data/matrix_data/',
 				   help='matrix data path')
 
@@ -39,6 +41,8 @@ test_end = int(args.test_end_point/gap_time)
 
 valid_anomaly_score = np.zeros((valid_end - valid_start , 1))
 test_anomaly_score = np.zeros((test_end - test_start, 1))
+
+raw_data_path = args.raw_data_path
 
 matrix_data_path = args.matrix_data_path
 test_data_path = matrix_data_path + "test_data/"
@@ -80,7 +84,7 @@ pd_test_anomaly_score = pd.DataFrame(test_anomaly_score)
 pd_test_anomaly_score.to_csv("anomaly_score.csv", index=None, header=None)
 
 # gather ground truth data
-raw_data = pd.read_csv('../data/part-009.csv', usecols=range(0,4))
+raw_data = pd.read_csv(raw_data_path, usecols=range(0,4))
 raw_data = raw_data.iloc[args.test_start_point:args.test_end_point]
 ground_truth = raw_data.iloc[::gap_time,:] #downsampling
 
