@@ -75,9 +75,13 @@ for i in progressbar.progressbar(range(valid_start, test_end)):
 valid_anomaly_max = np.max(valid_anomaly_score.ravel())
 test_anomaly_score = test_anomaly_score.ravel()
 
+# save results
+pd_test_anomaly_score = pd.DataFrame(test_anomaly_score)
+pd_test_anomaly_score.to_csv("anomaly_score.csv", index=None, header=None)
+
 # gather ground truth data
-raw_data = pd.read_csv('part-009.csv', usecols=range(0,4))
-raw_data = raw_data.iloc[test_start_point:test_end_point]
+raw_data = pd.read_csv('../data/part-009.csv', usecols=range(0,4))
+raw_data = raw_data.iloc[args.test_start_point:args.test_end_point]
 ground_truth = raw_data.iloc[::gap_time,:] #downsampling
 
 # plot anomaly score curve and identification result
@@ -95,7 +99,7 @@ threshold = np.full((test_num), valid_anomaly_max * alpha)
 axes.plot(threshold, color = 'black', linestyle = '--',linewidth = 2)
 
 # groud truth plot
-axes.fill_between(anomaly_score.index, 0, 1, where=ground_truth['isAnomaly'], alpha=0.4, color='red', transform=axes.get_xaxis_transform())
+axes.fill_between(pd_test_anomaly_score.index, 0, 1, where=ground_truth['isAnomaly'], alpha=0.4, color='red', transform=axes.get_xaxis_transform())
 
 labels = [' ', '0e3', '2e3', '4e3', '6e3', '8e3', '10e3']
 axes.set_xticklabels(labels, rotation = 25, fontsize = 20)
