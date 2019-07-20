@@ -43,6 +43,7 @@ valid_anomaly_score = np.zeros((valid_end - valid_start , 1))
 test_anomaly_score = np.zeros((test_end - test_start, 1))
 
 raw_data_path = args.raw_data_path
+anomaly_score_filename = "anomaly_score_" + os.path.basename(raw_data_path).split(".")[0] + ".csv"
 
 matrix_data_path = args.matrix_data_path
 test_data_path = matrix_data_path + "test_data/"
@@ -81,7 +82,7 @@ test_anomaly_score = test_anomaly_score.ravel()
 
 # save results
 pd_test_anomaly_score = pd.DataFrame(test_anomaly_score)
-pd_test_anomaly_score.to_csv("anomaly_score.csv", index=None, header=None)
+pd_test_anomaly_score.to_csv(anomaly_score_filename, index=None, header=None)
 
 # gather ground truth data
 raw_data = pd.read_csv(raw_data_path, usecols=range(0,4))
