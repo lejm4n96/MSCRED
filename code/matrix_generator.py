@@ -1,3 +1,4 @@
+import progressbar
 import numpy as np
 import argparse
 import pandas as pd
@@ -102,7 +103,7 @@ def generate_signature_matrix_node():
 		matrix_all = []
 		win = win_size[w]
 		print ("generating signature with window " + str(win) + "...")
-		for t in range(min_time, max_time, gap_time):
+		for t in progressbar.progressbar(range(min_time, max_time, gap_time)):
 			#print t
 			matrix_t = np.zeros((sensor_n, sensor_n))
 			if t >= 60:
@@ -239,7 +240,7 @@ def generate_train_test_data():
 
 	train_test_time = [[train_start, train_end], [test_start, test_end]]
 	for i in range(len(train_test_time)):
-		for data_id in range(int(train_test_time[i][0]/gap_time), int(train_test_time[i][1]/gap_time)):
+		for data_id in progressbar.progressbar(range(int(train_test_time[i][0]/gap_time), int(train_test_time[i][1]/gap_time))):
 			#print data_id
 			step_multi_matrix = []
 			for step_id in range(step_max, 0, -1):
