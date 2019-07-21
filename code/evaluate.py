@@ -11,6 +11,7 @@ import progressbar
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 from sklearn.metrics import f1_score
+from sklearn.metrics import average_precision_score
 
 parser = argparse.ArgumentParser(description = 'MSCRED evaluation')
 parser.add_argument('--thred_broken', type = int, default = 0.005,
@@ -127,3 +128,5 @@ plt.show()
 print("Precision score: ", precision_score(ground_truth['isAnomaly'], test_anomaly_score > threshold))
 print("Recall score: ", recall_score(ground_truth['isAnomaly'], test_anomaly_score > threshold))
 print("F1 score: ", f1_score(ground_truth['isAnomaly'], test_anomaly_score > threshold))
+
+print("Average precision score: ", average_precision_score(ground_truth['isAnomaly'], test_anomaly_score))
