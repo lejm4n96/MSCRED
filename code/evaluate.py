@@ -8,6 +8,10 @@ import math
 import os
 import progressbar
 
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import f1_score
+
 parser = argparse.ArgumentParser(description = 'MSCRED evaluation')
 parser.add_argument('--thred_broken', type = int, default = 0.005,
 				   help = 'broken pixel thred')
@@ -118,3 +122,8 @@ fig.subplots_adjust(bottom=0.25)
 fig.subplots_adjust(left=0.25)
 plt.title("MSCRED", size = 25)
 plt.show()
+
+# Model evaluation
+print("Precision score: ", precision_score(ground_truth['isAnomaly'], test_anomaly_score > threshold))
+print("Recall score: ", recall_score(ground_truth['isAnomaly'], test_anomaly_score > threshold))
+print("F1 score: ", f1_score(ground_truth['isAnomaly'], test_anomaly_score > threshold))
