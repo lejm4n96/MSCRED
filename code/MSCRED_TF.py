@@ -30,7 +30,7 @@ parser.add_argument('--test_end_id',  type = int, default = 4500,
 						help = 'test end id')
 parser.add_argument('--save_model_step', type = int, default = 1,
 						help = 'number of iterations to save model')
-parser.add_argument('--model_path', type = str, default = '../data/ts_data_csv2/MSCRED/',
+parser.add_argument('--model_path', type = str, default = '../data/MSCRED/',
 				   help='path to save models')
 parser.add_argument('--raw_data_path', type = str, default = '../data/part-009.csv',
 				   help='path to load raw data')
