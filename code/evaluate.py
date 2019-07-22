@@ -1,10 +1,16 @@
 import numpy as np
 import argparse
+import pandas as pd
 import matplotlib.pyplot as plt
 import string
 import re
 import math
 import os
+
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import f1_score
+from sklearn.metrics import average_precision_score
 
 parser = argparse.ArgumentParser(description = 'MSCRED evaluation')
 parser.add_argument('--thred_broken', type = int, default = 0.005,
@@ -90,16 +96,28 @@ for line in root_cause_f:
 root_cause_f.close()
 
 fig, axes = plt.subplots()
-#plt.plot(test_anomaly_score, 'black', linewidth = 2)
 test_num = test_end - test_start
 plt.xticks(fontsize = 25)
 plt.ylim((0, 100))
 plt.yticks(np.arange(0, 101, 20), fontsize = 25)
+
+# plot anomaly score
 plt.plot(test_anomaly_score, 'b', linewidth = 2)
+
+# plot threshold
 threshold = np.full((test_num), valid_anomaly_max * alpha)
 axes.plot(threshold, color = 'black', linestyle = '--',linewidth = 2)
-for k in range(len(anomaly_pos)):
-	axes.axvspan(anomaly_pos[k], anomaly_pos[k] + anomaly_span[k%3]/gap_time, color='red', linewidth=2)
+
+# ground truth plot
+ground_truth = np.zeros(test_anomaly_score.shape[0], dtype=bool)
+for i in range(len(ground_truth)):
+    for k in range(len(anomaly_pos)):
+        if anomaly_pos[k] <= i <= (anomaly_pos[k] + anomaly_span[k%3]/gap_time):
+            ground_truth[i] = True
+
+time = np.arange(0, test_anomaly_score.shape[0])
+axes.fill_between(time, 0, 1, where=ground_truth, alpha=0.4, color='red', transform=axes.get_xaxis_transform())
+
 labels = [' ', '0e3', '2e3', '4e3', '6e3', '8e3', '10e3']
 axes.set_xticklabels(labels, rotation = 25, fontsize = 20)
 plt.xlabel('Test Time', fontsize = 25)
@@ -113,13 +131,9 @@ fig.subplots_adjust(left=0.25)
 plt.title("MSCRED", size = 25)
 plt.show()
 
+# Model evaluation
+print("Precision score: ", precision_score(ground_truth, test_anomaly_score > threshold))
+print("Recall score: ", recall_score(ground_truth, test_anomaly_score > threshold))
+print("F1 score: ", f1_score(ground_truth, test_anomaly_score > threshold))
 
-
-
-
-
-
-
-
-
-
+print("Average precision score: ", average_precision_score(ground_truth, test_anomaly_score))
