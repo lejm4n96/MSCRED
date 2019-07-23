@@ -94,6 +94,9 @@ raw_data = pd.read_csv(raw_data_path, usecols=range(0,4))
 raw_data = raw_data.iloc[args.test_start_point:args.test_end_point]
 ground_truth = raw_data.iloc[::gap_time,:] #downsampling
 
+# plot style
+plt.style.use('seaborn-darkgrid')
+
 # plot anomaly score curve and identification result
 fig, axes = plt.subplots()
 test_num = test_end - test_start
