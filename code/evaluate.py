@@ -129,18 +129,14 @@ print("Precision score: ", metrics.precision_score(ground_truth['isAnomaly'], te
 print("Recall score: ", metrics.recall_score(ground_truth['isAnomaly'], test_anomaly_score > threshold))
 print("F1 score: ", metrics.f1_score(ground_truth['isAnomaly'], test_anomaly_score > threshold))
 
-print("Average precision score: ", metrics.average_precision_score(ground_truth['isAnomaly'], test_anomaly_score))
-
-fpr, tpr, thresholds = metrics.roc_curve(ground_truth['isAnomaly'], test_anomaly_score)
-roc_auc = metrics.auc(fpr, tpr)
+# Calculate precision-recall curve
+precision, recall, thresholds = metrics.precision_recall_curve(ground_truth['isAnomaly'], test_anomaly_score)
+avg_precision_score = metrics.average_precision_score(ground_truth['isAnomaly'], test_anomaly_score)
 
 plt.figure(1)
-#plt.xlim(0, 0.2)
-#plt.ylim(0.8, 1)
-plt.plot([0, 1], [0, 1], 'k--')
-plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)
-plt.xlabel('False positive rate')
-plt.ylabel('True positive rate')
-plt.title('ROC curve')
-plt.legend(loc='best')
+plt.plot(recall, precision, color='darkorange', lw=2)
+plt.plot([0, 1], [0.5, 0.5], linestyle='--')
+plt.xlabel('Recal')
+plt.ylabel('Precision')
+plt.title('Precision recall curve (avg: %0.2f)' % avg_precision_score)
 plt.show()
