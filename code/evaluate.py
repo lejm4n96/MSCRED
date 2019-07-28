@@ -8,11 +8,7 @@ import math
 import os
 import progressbar
 
-from sklearn.metrics import precision_score
-from sklearn.metrics import recall_score
-from sklearn.metrics import f1_score
-from sklearn.metrics import average_precision_score
-from sklearn.metrics import roc_curve
+from sklearn import metrics
 
 parser = argparse.ArgumentParser(description = 'MSCRED evaluation')
 parser.add_argument('--thred_broken', type = int, default = 0.005,
@@ -129,21 +125,22 @@ plt.title("MSCRED", size = 25)
 plt.show()
 
 # Model evaluation
-print("Precision score: ", precision_score(ground_truth['isAnomaly'], test_anomaly_score > threshold))
-print("Recall score: ", recall_score(ground_truth['isAnomaly'], test_anomaly_score > threshold))
-print("F1 score: ", f1_score(ground_truth['isAnomaly'], test_anomaly_score > threshold))
+print("Precision score: ", metrics.precision_score(ground_truth['isAnomaly'], test_anomaly_score > threshold))
+print("Recall score: ", metrics.recall_score(ground_truth['isAnomaly'], test_anomaly_score > threshold))
+print("F1 score: ", metrics.f1_score(ground_truth['isAnomaly'], test_anomaly_score > threshold))
 
-print("Average precision score: ", average_precision_score(ground_truth['isAnomaly'], test_anomaly_score))
+print("Average precision score: ", metrics.average_precision_score(ground_truth['isAnomaly'], test_anomaly_score))
 
-fpr, tpr, thresholds = roc_curve(ground_truth['isAnomaly'], test_anomaly_score)
+fpr, tpr, thresholds = metrics.roc_curve(ground_truth['isAnomaly'], test_anomaly_score)
+roc_auc = metrics.auc(fpr, tpr)
 
 plt.figure(1)
 #plt.xlim(0, 0.2)
 #plt.ylim(0.8, 1)
 plt.plot([0, 1], [0, 1], 'k--')
-plt.plot(fpr, tpr)
+plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)
 plt.xlabel('False positive rate')
 plt.ylabel('True positive rate')
-plt.title('ROC curve (zoomed in at top left)')
+plt.title('ROC curve')
 plt.legend(loc='best')
 plt.show()
