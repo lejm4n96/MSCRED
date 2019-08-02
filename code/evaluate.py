@@ -45,7 +45,8 @@ valid_anomaly_score = np.zeros((valid_end - valid_start , 1))
 test_anomaly_score = np.zeros((test_end - test_start, 1))
 
 raw_data_path = args.raw_data_path
-anomaly_score_filename = "anomaly_score_" + os.path.basename(raw_data_path).split(".")[0] + ".csv"
+data_basename = os.path.basename(raw_data_path).split(".")[0]
+anomaly_score_filename = "anomaly_score_" + data_basename + ".csv"
 
 matrix_data_path = args.matrix_data_path
 test_data_path = matrix_data_path + "test_data/"
@@ -121,7 +122,7 @@ axes.yaxis.set_ticks_position('left')
 axes.xaxis.set_ticks_position('bottom')
 fig.subplots_adjust(bottom=0.25)
 fig.subplots_adjust(left=0.25)
-plt.title("MSCRED", size = 25)
+plt.title("MSCRED - %s" % data_basename, size = 25)
 plt.show()
 
 # Model evaluation
@@ -138,5 +139,5 @@ plt.plot(recall, precision, color='darkorange', lw=2)
 plt.plot([0, 1], [0.5, 0.5], linestyle='--')
 plt.xlabel('Recal')
 plt.ylabel('Precision')
-plt.title('Precision recall curve (avg: %0.2f)' % avg_precision_score)
+plt.title('Precision recall curve (avg: %0.2f) - %s' % (avg_precision_score, data_basename), size = 25)
 plt.show()
