@@ -106,3 +106,5 @@ def animate(i):
     ax3.title.set_text('Anomaly score %d' % num_broken)
     
 anim = animation.FuncAnimation(fig, animate, frames=200, repeat=False, interval=15)
+
+plt.show()
