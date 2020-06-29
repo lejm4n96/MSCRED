@@ -30,15 +30,15 @@ parser.add_argument('--test_end_id',  type = int, default = 2000,
 						help = 'test end id')
 parser.add_argument('--save_model_step', type = int, default = 1,
 						help = 'number of iterations to save model')
-parser.add_argument('--model_path', type = str, default = '../data/ts_data_csv2/MSCRED/',
+parser.add_argument('--model_path', type = str, default = 'C:/Users/Andrej Lejman/OneDrive/Studium/Dokumente/Bachelorarbeit/Ressourcen/Anomalieerkennung/Code/MSCRED/MSCRED/data/ts_data_csv2/MSCRED/',
 				   help='path to save models')
-parser.add_argument('--raw_data_path', type = str, default = '../data/synthetic_data_with_anomaly-s-1.csv',
+parser.add_argument('--raw_data_path', type = str, default = 'C:/Users/Andrej Lejman/OneDrive/Studium/Dokumente/Bachelorarbeit/Ressourcen/Anomalieerkennung/Code/MSCRED/MSCRED/data/synthetic_data_with_anomaly-s-1.csv',
 				   help='path to load raw data')
-parser.add_argument('--matrix_data_path', type = str, default = '../data/matrix_data/',
+parser.add_argument('--matrix_data_path', type = str, default = 'C:/Users/Andrej Lejman/OneDrive/Studium/Dokumente/Bachelorarbeit/Ressourcen/Anomalieerkennung/Code/MSCRED/MSCRED/data/matrix_data/',
 				   help='matrix data path')
 # parser.add_argument('--test_input_path', type = str, default = '../data/matrix_data/test_data/',
 # 				   help='test input data path')
-parser.add_argument('--train_test_label', type=int, default = 1,
+parser.add_argument('--train_test_label', type=int, default = 0,
 				   help='train/test label: train (1), test (0)')
 parser.add_argument('--GPU_id', type=int, default = 3,
 				   help='GPU ID to select')

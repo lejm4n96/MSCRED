@@ -1,1 +1,5 @@
 data/matrix_data/
+*.data-00000-of-00001
+*.index
+*.meta
+data/ts_data_csv2/MSCRED/checkpoint

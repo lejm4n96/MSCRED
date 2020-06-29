@@ -21,7 +21,7 @@ parser.add_argument('--test_end_point',  type = int, default = 20000,
 						help = 'test end point')
 parser.add_argument('--gap_time', type = int, default = 10,
 				   help = 'gap time between each segment')
-parser.add_argument('--matrix_data_path', type = str, default = '../data/matrix_data/',
+parser.add_argument('--matrix_data_path', type = str, default = 'C:/Users/Andrej Lejman/OneDrive/Studium/Dokumente/Bachelorarbeit/Ressourcen/Anomalieerkennung/Code/MSCRED/MSCRED/data/matrix_data/',
 				   help='matrix data path')
 
 args = parser.parse_args()
@@ -77,7 +77,7 @@ test_anomaly_score = test_anomaly_score.ravel()
 anomaly_pos = np.zeros(5)
 root_cause_gt = np.zeros((5, 3))
 anomaly_span = [10, 30, 90]
-root_cause_f = open("../data/test_anomaly.csv", "r")
+root_cause_f = open("C:/Users/Andrej Lejman/OneDrive/Studium/Dokumente/Bachelorarbeit/Ressourcen/Anomalieerkennung/Code/MSCRED/MSCRED/data/test_anomaly.csv", "r")
 row_index = 0
 for line in root_cause_f:
 	line=line.strip()

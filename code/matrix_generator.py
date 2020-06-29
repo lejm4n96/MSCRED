@@ -32,9 +32,9 @@ parser.add_argument('--test_start_point',  type = int, default = 8000,
 						help = 'test start point')
 parser.add_argument('--test_end_point',  type = int, default = 20000,
 						help = 'test end point')
-parser.add_argument('--raw_data_path', type = str, default = '../data/synthetic_data_with_anomaly-s-1.csv',
+parser.add_argument('--raw_data_path', type = str, default = 'C:/Users/Andrej Lejman/OneDrive/Studium/Dokumente/Bachelorarbeit/Ressourcen/Anomalieerkennung/Code/MSCRED/MSCRED/data/synthetic_data_with_anomaly-s-1.csv',
 				   help='path to load raw data')
-parser.add_argument('--save_data_path', type = str, default = '../data/',
+parser.add_argument('--save_data_path', type = str, default = 'C:/Users/Andrej Lejman/OneDrive/Studium/Dokumente/Bachelorarbeit/Ressourcen/Anomalieerkennung/Code/MSCRED/MSCRED/data/',
 				   help='path to save data')
 
 args = parser.parse_args()
@@ -53,7 +53,7 @@ test_start = args.test_start_point
 test_end = args.test_end_point
 
 raw_data_path = args.raw_data_path
-link_name_path = "../data/synthetic_data_link_name.csv"
+link_name_path = "C:/Users/Andrej Lejman/OneDrive/Studium/Dokumente/Bachelorarbeit/Ressourcen/Anomalieerkennung/Code/MSCRED/MSCRED/data/synthetic_data_link_name.csv"
 save_data_path = args.save_data_path
 
 value_colnames = ['total_count','error_count','error_rate']
